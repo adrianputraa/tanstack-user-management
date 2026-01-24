@@ -2,8 +2,10 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
+import { ThemeProvider } from '@/components/provider/theme'
 import Header from '../components/Header'
 import appCss from '../styles.css?url'
+import { getThemeServerFn } from '@/lib/theme'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -26,19 +28,26 @@ export const Route = createRootRoute({
       },
     ],
   }),
-
+  loader: () => getThemeServerFn(),
   shellComponent: RootDocument,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const theme = Route.useLoaderData()
+
   return (
-    <html lang="en">
+    <html lang="en" className={theme} suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        <Header />
-        {children}
+        <ThemeProvider theme={theme}>
+          <Header />
+          {children}
+        </ThemeProvider>
+
+        <Scripts />
+
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -50,7 +59,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             },
           ]}
         />
-        <Scripts />
       </body>
     </html>
   )
