@@ -1,14 +1,22 @@
-import RegisterForm from '@/components/form/register'
-import { createFileRoute } from '@tanstack/react-router'
+import DefaultLayout from '@/components/layout/default'
+import { List, ListItem } from '@/components/list'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   return (
-    <div className="min-h-screen">
-      <div className="flex items-center justify-center">
-        <RegisterForm />
+    <DefaultLayout>
+      <div className="container min-h-screen">
+        <div className="mx-auto">
+          <p>Available Pages</p>
+          <List>
+            <ListItem>
+              <Link to="/register">Register</Link>
+            </ListItem>
+          </List>
+        </div>
       </div>
-    </div>
+    </DefaultLayout>
   )
 }

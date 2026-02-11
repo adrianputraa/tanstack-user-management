@@ -3,9 +3,8 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
 import { ThemeProvider } from '@/components/provider/theme'
-import Header from '../components/Header'
-import appCss from '../styles.css?url'
 import { getThemeServerFn } from '@/lib/theme'
+import appCss from '../styles.css?url'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -41,13 +40,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider theme={theme}>
-          <Header />
-          {children}
-        </ThemeProvider>
-
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
         <Scripts />
-
         <TanStackDevtools
           config={{
             position: 'bottom-right',

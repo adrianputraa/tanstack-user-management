@@ -1,5 +1,7 @@
 import startCase from 'lodash-es/startCase'
 import { ChangeEvent, useState } from 'react'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
 
 type FormSchema = {
   email: string
@@ -35,22 +37,19 @@ export default function RegisterForm() {
               <label htmlFor={key + '_input'} className="font-medium">
                 {startCase(key)}
               </label>
-              <input
+              <Input
                 id={key + '_input'}
                 value={value}
                 type={key !== 'password' ? 'text' : 'password'}
-                className="w-full border p-1"
+                className="w-full border"
                 onChange={(evt) => onChange(key, evt)}
               />
             </div>
           ))}
 
-          <button
-            onClick={onSubmit}
-            className="bg-muted hover:bg-muted/75 cursor-pointer p-2 border"
-          >
+          <Button type="button" onClick={onSubmit}>
             Submit
-          </button>
+          </Button>
         </div>
       </form>
     </section>
